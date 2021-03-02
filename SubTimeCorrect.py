@@ -69,9 +69,10 @@ while(TimeDifStr[0]!='-' and TimeDifStr[0] not in numList):
 #input("pressione enter para encerrar")
 if(TimeDifStr[0]=='-'):
     IsForward=True
+    TimeDifStr=TimeDifStr[1:]
 else:
     IsForward=False
-TimeDifStr='10/10/2000 '+TimeDifStr[1:]
+TimeDifStr='10/10/2000 '+TimeDifStr
 TimeDif=datetime.datetime.strptime(TimeDifStr, '%d/%m/%Y %H:%M:%S,%f')
 #SubTesting(lines)
 
@@ -94,10 +95,13 @@ for p in places2calc:
             p1Str=str(newP1)[:-3]
             p2Str=str(newP2)[:-3]
             #print(p1Str+' --> '+p2Str)
-        newline="{:02d}:{:02d}:{:06.3f}".format(int(p1Str[:1]),int(p1Str[2:4]),float(p1Str[5:]))+' --> '+"{:02d}:{:02d}:{:06.3f}".format(int(p2Str[:1]),int(p2Str[2:4]),float(p2Str[5:]))
+        #newline="{:02d}:{:02d}:{:06.3f}".format(int(p1Str[:1]),int(p1Str[2:4]),float(p1Str[5:]))+' --> '+"{:02d}:{:02d}:{:06.3f}".format(int(p2Str[:1]),int(p2Str[2:4]),float(p2Str[5:]))
+        newline=p1Str+' --> '+p2Str        
         i=0
         newline=newline.replace('.',',')
         lines[p]=newline
+        #print(lines[p])
+
 file.close()
 ClearScreen()
 newFile="CorrectedSub.srt"
