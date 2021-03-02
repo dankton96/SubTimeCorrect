@@ -86,17 +86,20 @@ for p in places2calc:
             p1Str=str(newP1)
             p2Str=str(newP2)
         else:
-            newP1=p1+TimeDif
-            newP2=p2+TimeDif
-            p1Str=str(newP1)
-            p2Str=str(newP2)            
+            time_zero = datetime.datetime.strptime('00:00:00', '%H:%M:%S')
+            newP1=(p1 - time_zero + TimeDif).time()
+            #newP1=p1+TimeDif
+            newP2=(p2 - time_zero + TimeDif).time()
+            #newP2=p2+TimeDif
+            p1Str=str(newP1)[:-3]
+            p2Str=str(newP2)[:-3]
+            #print(p1Str+' --> '+p2Str)
         newline="{:02d}:{:02d}:{:06.3f}".format(int(p1Str[:1]),int(p1Str[2:4]),float(p1Str[5:]))+' --> '+"{:02d}:{:02d}:{:06.3f}".format(int(p2Str[:1]),int(p2Str[2:4]),float(p2Str[5:]))
         i=0
         newline=newline.replace('.',',')
         lines[p]=newline
-#SubTesting(lines)
 file.close()
-#SubTesting(lines)
+ClearScreen()
 newFile="CorrectedSub.srt"
 file=open(newFile,'w')
 for l in lines:
