@@ -56,9 +56,12 @@ Onde: H=Horas, M=Minutos, S=Segundos, s=milissegundos
 Insira o tempo a ser ajustado:
 '''
 TimeDifStr='+'
-while(TimeDifStr[0]!='-' and TimeDifStr[0] not in numList):
+while(len(TimeDifStr) not in [12,13] and TimeDifStr[0]!='-' and TimeDifStr[0] not in numList):
     ClearScreen()
-    TimeDifStr=input(instructions)
+    try:
+        TimeDifStr=input(instructions)
+    except:
+        input("Tempo em formato invalido\nPressione enter para continuar")
 if(TimeDifStr[0]=='-'):
     IsForward=True
     TimeDifStr=TimeDifStr[1:]
