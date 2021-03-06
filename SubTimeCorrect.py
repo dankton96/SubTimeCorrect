@@ -32,6 +32,32 @@ def IsSubTime(tstr):
             return False
     return True
 ################################################################################################
+#-00:00:00,000
+def IsInputTime(tstr):
+    if(len(tstr) not in [12,13]):
+            return False
+    if(tstr[0]=='-'):
+        for i in [a+1 for a in NumPos[:9]]:
+            if tstr[i] not in numList:
+                return False
+        j=CommaPos[0]+1
+        if tstr[j]!=',':
+            return False
+        for i in [c+1 for c in ColonPos[:3]]:
+            if tstr[i]!=':':
+                return False
+    else:
+        for i in NumPos:
+            if tstr[i] not in numList:
+                return False
+        for i in CommaPos:
+            if tstr[i]!=',':
+                return False
+        for i in ColonPos:
+            if tstr[i]!=':':
+                return False
+    return True
+################################################################################################
 for sc in file:
     sub.append(sc)
 text=''
@@ -56,12 +82,13 @@ Onde: H=Horas, M=Minutos, S=Segundos, s=milissegundos
 Insira o tempo a ser ajustado:
 '''
 TimeDifStr='+'
-while(len(TimeDifStr) not in [12,13] and TimeDifStr[0]!='-' and TimeDifStr[0] not in numList):
+while((not IsInputTime(TimeDifStr)) or TimeDifStr=='\n'):
     ClearScreen()
     try:
         TimeDifStr=input(instructions)
     except:
         input("Tempo em formato invalido\nPressione enter para continuar")
+
 if(TimeDifStr[0]=='-'):
     IsForward=True
     TimeDifStr=TimeDifStr[1:]
